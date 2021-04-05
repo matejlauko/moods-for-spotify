@@ -1,0 +1,86 @@
+{
+  "private": true,
+  "name": "moods-for-spotify",
+  "description": "",
+  "version": "0.1.0",
+  "author": "Matej Lauko <dev@matejlauko.com>",
+  "main": "app/background.js",
+  "scripts": {
+    "dev": "nextron",
+    "build": "nextron build",
+    "postinstall": "electron-builder install-app-deps",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-aria/button": "^3.3.1",
+    "@react-aria/checkbox": "^3.2.1",
+    "@react-aria/combobox": "^3.0.0-beta.0",
+    "@react-aria/dialog": "^3.1.2",
+    "@react-aria/focus": "^3.2.4",
+    "@react-aria/i18n": "^3.3.0",
+    "@react-aria/listbox": "^3.2.4",
+    "@react-aria/overlays": "^3.6.2",
+    "@react-aria/searchfield": "^3.1.2",
+    "@react-aria/select": "^3.3.1",
+    "@react-aria/slider": "^3.0.1",
+    "@react-aria/switch": "^3.1.1",
+    "@react-aria/tooltip": "^3.1.1",
+    "@react-aria/utils": "^3.7.0",
+    "@react-aria/visually-hidden": "^3.2.1",
+    "@react-stately/checkbox": "^3.0.1",
+    "@react-stately/collections": "^3.3.1",
+    "@react-stately/combobox": "^3.0.0-beta.0",
+    "@react-stately/searchfield": "^3.1.1",
+    "@react-stately/select": "^3.1.1",
+    "@react-stately/toggle": "^3.2.1",
+    "@react-stately/tooltip": "^3.0.3",
+    "@stitches/react": "^0.1.0",
+    "deep-equal": "^2.0.5",
+    "electron-deeplink": "^1.0.6",
+    "electron-log": "^4.3.2",
+    "electron-serve": "^1.1.0",
+    "electron-store": "^7.0.2",
+    "electron-util": "^0.14.2",
+    "emoji-mart": "^3.0.1",
+    "spotify-web-api-js": "^1.5.1",
+    "use-debounce": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/deep-equal": "^1.0.1",
+    "@types/emoji-mart": "^3.0.4",
+    "@types/node": "^14.6.4",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.2",
+    "electron": "^12.0.1",
+    "electron-builder": "^22.9.1",
+    "next": "^10.0.8",
+    "nextron": "^6.0.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "typescript": "^4.2.2"
+  },
+  "build": {
+    "appId": "com.moods.app",
+    "productName": "Moods for Spotify",
+    "copyright": "Copyright © 2021 Matej Lauko",
+    "directories": {
+      "output": "dist",
+      "buildResources": "resources"
+    },
+    "files": [
+      {
+        "from": ".",
+        "filter": [
+          "package.json",
+          "app"
+        ]
+      }
+    ],
+    "protocols": {
+      "name": "app",
+      "schemes": [
+        "spotifyremote"
+      ]
+    }
+  }
+}
