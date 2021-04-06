@@ -2,7 +2,7 @@
   "private": true,
   "name": "moods-for-spotify",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Matej Lauko <dev@matejlauko.com>",
   "main": "app/background.js",
   "scripts": {
