@@ -83,7 +83,7 @@ export function setupDisplayHandlers(window: BrowserWindow) {
   ipcMain.handle('minimode-set', (_event, isMini) => {
     if (isMini) {
       window.setMinimumSize(300, 100);
-      window.setSize(420, 110, true);
+      window.setSize(420, 115, true);
     } else {
       window.setMinimumSize(400, 300);
       window.setSize(450, 350, true);
