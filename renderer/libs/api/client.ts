@@ -8,10 +8,6 @@ export type ApiClient = typeof client;
 async function refreshAccess() {
   const accessToken = await getToken();
 
-  if (!accessToken) {
-    throw new Error('Missing access token to initialize Spotify API client');
-  }
-
   client.setAccessToken(accessToken);
 }
 
@@ -62,14 +58,3 @@ export const useApiMutation = (callbacks?: {
 
   return mutate;
 };
-
-// export function getApiClient() {
-//   // const accessToken = await getToken();
-//   // initApiClient(accessToken);
-
-//   // if (!client.getAccessToken()) {
-//   //   throw new Error('Spotify API client is not initialized with access token');
-//   // }
-
-//   return client;
-// }
