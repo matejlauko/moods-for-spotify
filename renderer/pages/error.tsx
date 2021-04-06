@@ -15,13 +15,8 @@ const Error = () => {
 
   const knownError = ErrorTypes[error as ErrorType];
 
-  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const redirectHome = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-
-    if (knownError?.redirect?.includes('http')) {
-      shell.openExternal(knownError.redirect);
-      return;
-    }
 
     // When app reloaded on error page
     if (window.history?.length === 1) {
@@ -32,10 +27,16 @@ const Error = () => {
     back();
   };
 
+  const redirectToSpotify = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    shell.openExternal('https://www.spotify.com/premium/');
+  };
+
   return (
     <>
       <Head>
-        <title>Ooops 🙈</title>
+        <title>Error 🙈</title>
       </Head>
 
       <SupportingLayout>
@@ -43,11 +44,18 @@ const Error = () => {
           <h1>Error</h1>
           <Message>{knownError?.message || error}</Message>
 
-          <Link
-            href={knownError?.redirect || '/home'}
-            onClick={handleLinkClick}
-          >
-            {knownError?.redirectName || 'Try again'}
+          {error === 'non_premium' && (
+            <>
+              <Link href="/home" onClick={redirectToSpotify}>
+                Spotify Premium
+              </Link>
+              <br />
+              <br />
+            </>
+          )}
+
+          <Link href="/home" onClick={redirectHome}>
+            Try again
           </Link>
         </Container>
       </SupportingLayout>

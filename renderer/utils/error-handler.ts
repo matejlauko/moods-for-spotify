@@ -6,29 +6,19 @@ export const ErrorTypes = {
   non_premium: {
     message:
       "Moods uses Spotify APIs which are only available to Spotify premium users. Please buy Spotify - it's worth it! Here:",
-    redirect: 'https://www.spotify.com/premium/',
-    redirectName: 'Spotify Premium',
   },
   offline: {
     message:
       'This app requires the magic of the internet to work. Trying to reconnect..',
-    redirect: null,
-    redirectName: null,
   },
   rate_limit: {
     message: 'Too many requests',
-    redirect: null,
-    redirectName: null,
   },
   query: {
     message: 'Error fetching data',
-    redirect: null,
-    redirectName: null,
   },
   mutation: {
     message: "Coudln't perform the action",
-    redirect: null,
-    redirectName: null,
   },
 } as const;
 
@@ -58,7 +48,7 @@ export const useErrorHandler = () => {
     error?: Error | XMLHttpRequest | string
   ) {
     log.error(`[app] "${errorType}" error handled`, {
-      request: error instanceof XMLHttpRequest ? error.statusText : null,
+      request: error instanceof XMLHttpRequest ? error : null,
       error:
         error instanceof Error
           ? error.message
@@ -75,8 +65,18 @@ export const useErrorHandler = () => {
         return;
       }
 
-      // User is not premium
-      if (error.status === 403) {
+      let responsePayload: Record<string, any> = {};
+      try {
+        responsePayload = JSON.parse(error.response);
+      } catch (e) {
+        /* noop */
+      }
+
+      // User doesn't have premium subscription (needed for Playback API)
+      if (
+        error.status === 403 &&
+        responsePayload.error.reason === 'PREMIUM_REQUIRED'
+      ) {
         push({ pathname: '/error', query: { error: 'non_premium' } });
         return;
       }
